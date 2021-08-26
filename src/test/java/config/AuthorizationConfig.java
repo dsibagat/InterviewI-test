@@ -13,7 +13,4 @@ public interface AuthorizationConfig extends Config {
 
     @Config.Key("test-app.password")
     String password();
-
-    @Config.Key("test-app.token")
-    String token();
 }
