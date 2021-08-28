@@ -1,6 +1,7 @@
 package tests.apiTests;
 
 import api.GetAccess;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
 
@@ -8,16 +9,18 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class AuthTest extends TestBase {
+public class PlayerApiTest extends TestBase {
 
+    @Description("Получаем гостевой токен")
     @Test
     public void guestToken() {
         GetAccess.getGuestToken();
     }
 
+    @Description("Регистрируем игрока")
     @Test
     public void playerRegistration() {
-        String username = "ji.daniel2";
+        String username = "ji.daniel7";
         String guestToken = GetAccess.getGuestToken();
 
         given()
@@ -41,11 +44,13 @@ public class AuthTest extends TestBase {
                 .body("id", is(notNullValue()));
     }
 
+    @Description("Авторизуемся как игрок")
     @Test
     public void playerAuth() {
         GetAccess.playerToken();
     }
 
+    @Description("Получаем информацию по текущему игроку")
     @Test
     public void getPlayerInfo() {
         String playerToken = GetAccess.playerToken();
@@ -61,6 +66,7 @@ public class AuthTest extends TestBase {
                 .body("id", is(8540));
     }
 
+    @Description("Получаем информацию по другому игроку")
     @Test
     public void getOtherPlayerInfo() {
         String playerToken = GetAccess.playerToken();

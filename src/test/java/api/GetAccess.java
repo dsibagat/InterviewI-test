@@ -1,12 +1,14 @@
 package api;
 
+import tests.TestBase;
+
 import static io.restassured.RestAssured.given;
 
-public class GetAccess {
+public class GetAccess extends TestBase {
 
     public static String getGuestToken() {
 
-        String guestToken = given()
+        return given()
                 .contentType("application/json; charset=UTF-8")
                 .auth().preemptive().basic("front_2d6b0a8391742f5d789d7d915755e09e", "")
                 .when()
@@ -19,11 +21,11 @@ public class GetAccess {
                 .log().body()
                 .statusCode(200)
                 .extract().path("access_token").toString();
-        return guestToken;
     }
 
     public static String playerToken() {
-        String pToken = given()
+
+        return given()
                 .contentType("application/json; charset=UTF-8")
                 .auth().preemptive().basic("front_2d6b0a8391742f5d789d7d915755e09e", "")
                 .when()
@@ -37,6 +39,6 @@ public class GetAccess {
                 .then()
                 .statusCode(200)
                 .extract().path("access_token").toString();
-        return pToken;
     }
 }
+

@@ -1,14 +1,21 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import config.ConfigHelper;
+import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
+
+import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 
 public class TestBase {
 
     @BeforeAll
-    static void setUp() {
-        RestAssured.baseURI = "http://test-api.d6.dev.devcaz.com";
-        Configuration.baseUrl = "http://test-app.d6.dev.devcaz.com";
+    public static void beforeAll() {
+        addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+
+        Configuration.baseUrl = ConfigHelper.getWebUrl();
+        RestAssured.baseURI = ConfigHelper.getWebUri();
+        Configuration.startMaximized = true;
     }
 }
